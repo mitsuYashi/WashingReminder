@@ -28,5 +28,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+//      通知呼び出し
+        val permissionHandler = PermissionHandler(this)
+        val notificationManagingService = NotificationManagingService(this, permissionHandler.requestPermission())
     }
 }
