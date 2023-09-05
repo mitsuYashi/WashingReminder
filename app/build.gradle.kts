@@ -1,7 +1,14 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+}
+
+val apikeyProptiesFile = rootProject.file("app/apikey.properties")
+val apikeyPropties = Properties().apply {
+    load(apikeyProptiesFile.inputStream())
 }
 
 android {
@@ -16,6 +23,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "WEATHER_API_KEY", apikeyPropties["WEATHER_API_KEY"].toString())
     }
 
     buildTypes {
@@ -33,6 +42,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -46,11 +56,24 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
-//    implementation("com.github.kittinunf.fuel:fuel:<latest-version>")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+//    fuel
+    val fuelVersion = "2.3.1"
+    implementation("com.github.kittinunf.fuel:fuel:$fuelVersion")
+    implementation("com.github.kittinunf.fuel:fuel-android:$fuelVersion")
+    implementation("com.github.kittinunf.fuel:fuel-json:$fuelVersion")
+
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
+
+//    glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+
+//    charts
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 //    room
     val roomVersion = "2.5.0"

@@ -3,7 +3,6 @@ package com.example.washingreminder
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -14,7 +13,6 @@ import com.example.washingreminder.databinding.ActivityMainBinding
 
 import java.util.Calendar
 import com.example.washingreminder.room.AppDatabase
-import com.example.washingreminder.utils.LocationUtil.getSavedLocation
 import com.example.washingreminder.utils.LocationUtil.initialBootLocation
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -53,17 +51,14 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             val placeDao = db.placeDao()
             initialBootLocation(placeDao, this@MainActivity)
-            val (latitude, longitude) = getSavedLocation(placeDao)
-            Log.d("MainActivity", "checkSavedLocation: $latitude, $longitude")
         }
 
-
-
 //      通知呼び出し
-//        val permissionHandler = PermissionHandler(this)
-//        val notificationManagingService =
-//            NotificationManagingService(this, permissionHandler.requestPermission())
+        val permissionHandler = PermissionHandler(this)
+        val notificationManagingService =
+            NotificationManagingService(this, permissionHandler.requestPermission())
 //        val alarmScheduler = AlarmScheduler(this)
+        notificationManagingService.showNotification()
 //        alarmScheduler.scheduleAlarm(17, 45)
     }
 
