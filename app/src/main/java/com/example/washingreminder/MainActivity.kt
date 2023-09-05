@@ -1,5 +1,7 @@
 package com.example.washingreminder
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -9,6 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.washingreminder.databinding.ActivityMainBinding
+
+import java.util.Calendar
 import com.example.washingreminder.room.AppDatabase
 import com.example.washingreminder.utils.LocationUtil.getSavedLocation
 import com.example.washingreminder.utils.LocationUtil.initialBootLocation
@@ -16,6 +20,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
